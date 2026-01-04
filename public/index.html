@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Roblox Sales</title>
+</head>
+<body>
+  <h2>Live Group Sales</h2>
+  <ul id="list"></ul>
+
+  <script>
+    async function load() {
+      const res = await fetch("/api/sales");
+      const data = await res.json();
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+      data.forEach(s => {
+        const li = document.createElement("li");
+        li.textContent = `${s.item} — ${s.robux} R$ — ${s.buyer}`;
+        list.appendChild(li);
+      });
+    }
+    load();
+    setInterval(load, 15000);
+  </script>
+</body>
+</html>
